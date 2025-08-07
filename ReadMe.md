@@ -1,3 +1,5 @@
+# 这是什么
+这是《编译原理》（Compilers: Principles, Techniques, and Tools），也就是“龙书”（Dragon Book）的学习笔记，依据某一个中文版学习。
 
 # 代目录
 
