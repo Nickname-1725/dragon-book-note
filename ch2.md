@@ -487,7 +487,34 @@ __语义动作__（semantic action）
 *略*
 
 # 语法分析
-<i style="color:gray">对应扫描中文版pdf页码32</i>
+<i style="color:gray">对应扫描中文版pdf页码37</i>
+
+## 自顶向下分析法
+
+## 预测分析法
+
+## 何时使用 ε 产生式
+
+## 设计一个预测分析器
+
+## 左递归
+
+## 2.4节的练习
+
+# 简单表达式的翻译器
+<i style="color:gray">对应扫描中文版pdf页码43</i>
+
+# 词法分析
+<i style="color:gray">对应扫描中文版pdf页码47</i>
+
+# 符号表
+<i style="color:gray">对应扫描中文版pdf页码53</i>
+
+# 生成中间代码
+<i style="color:gray">对应扫描
+
+# 第2章总结
+<i style="color:gray">对应扫描中文版pdf页码66</i>
 
 
 [代目录](ReadMe.md#代目录)
