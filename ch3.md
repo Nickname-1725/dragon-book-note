@@ -477,6 +477,78 @@ optionalExponent -> (E (+|-|ε) digits) | ε
 # 词法单元的识别
 <i style="color:gray">对应扫描中文版pdf页码80</i>
 
+学习根据需要识别的词法单元的模式构造出一端代码
+- 检查输入字符串
+- 在输入的前缀中找到一个和某个模式匹配的词素
+
+例子：
+- 文法片段描述了分支语句和条件表达式的一种简单形式
+  ```
+  stmt -> if expr then stmt
+        | if expr then stmt else stmt
+        | ε
+  expr -> term relop term
+        | term
+  term -> id
+        | number
+  ```
+  - 这个语法和 Pascal 语言的语法类似
+  - 对于 relop，我们使用 Pascal 或 SQL 语言中的比较运算符
+- 文法的终结符号：if、then、else、relop、id 和 number 都是词法单元的名字
+- 这些词法单元的模式使用正则定义描述
+  ```
+   digit -> [0-9]
+  digits -> digit+
+  number -> digits (. digits)? (E [+-]? digits)?
+  letter -> [A-Za-z]
+      id -> letter (letter | digit)*
+      if -> if
+    then -> then
+    else -> else
+   relop -> < | > | <= | >= | = | <>
+  ```
+  *（这里的 `<>` 应该是不等于的意思）*
+
+为了简化问题，我们做出假设：
+- 关键字也是也是 __保留字__，它不是标识符
+- 我们还让词法分析器负责消除空白符，方法是让它识别“词法单元” ws
+  ```
+  ws -> (blank | tab | newline)+
+  ```
+  词法单元 ws 不同之处在于
+  - 当我们识别到 ws 时，我们并不将它返回给语法分析器
+  - 而是从这个空白之后继续进行词法分析
+
+词法分析器的目标
+| 词素 | 词法单元名字 | 属性值 |
+|-|-|-|
+| Any ws | - | - |
+| if | if | - |
+| then | then | - |
+| else | else | - |
+| Any id | id | 指向符号表条目的指针 |
+| Any number | number | 指向符号表条目的指针 |
+| < | relop | LT |
+| <= | relop | LE |
+| = | relop | EQ |
+| <> | relop | NE |
+| > | relop | GT |
+| >= | relop | GE |
+- 对于各个词素或词素的集合，该表显示了
+  - 将哪个词法单元返回给关系运算符
+  - 按照 [3.1.3 节](ch3.md#词法单元的属性) 的介绍，应该返回什么属性值
+- 对于其中 6 个关系运算符，符号常量 `LT` 等被当作属性值返回，目的是指明我们发现的是词法单元 relop 的哪个实例
+
+## 状态转换图
+
+## 保留字和标识符的识别
+
+## 完成我们的例子
+
+## 基于状态转换图的词法分析器的体系结构
+
+## 3.4 节的练习
+
 # 词法分析器生成工具 Lex
 <i style="color:gray">对应扫描中文版pdf页码89</i>
 
